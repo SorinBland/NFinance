@@ -1,49 +1,20 @@
 import requests
-from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
-from bs4 import BeautifulSoup as Bs
+from finance_app import scraper
 from finance_app.models import Headline
-from django.db import IntegrityError
-from django.utils.text import Truncator
+from apscheduler.schedulers.background import BackgroundScheduler
+
+from finance_app.scraper import scrape
 
 requests.packages.urllib3.disable_warnings()
 
 
-def scraper(request):
-    session = requests.Session()
-    session.headers = {"User-Agent": "Googlebot/2.1 (+http://www.google.com/bot.html)"}
-    url = "https://finance.yahoo.com"
-    content = session.get(url, verify=False).content
-    soup = Bs(content, "html.parser")
-    cadru_mare = soup.find_all("div", "Cf")
+def scraper_view(request):
+    scraper.scrape()
 
-    for article in cadru_mare[3:]:
-        try:
-            titlu = article.find("a").text
-            paragraf = article.find("p").text
-            url = article.find("a").get("href")
-            img = article.find("img").get("src")
-
-            new_head = Headline()
-            new_head.title = titlu
-            new_head.head_img = img
-            new_head.url = "https://finance.yahoo.com/" + url
-            new_head.start_paragraph = paragraf
-
-            new_head.start_paragraph = Truncator(new_head.start_paragraph).chars(800)
-            new_head.save()
-
-        except ValidationError:
-            continue
-
-        except IntegrityError:
-            continue
-
-        except AttributeError:
-            continue
-
-        except IndexError:
-            continue
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(scrape, 'interval', minutes=10)
+    scheduler.start()
 
     return redirect("../")
 
@@ -52,5 +23,3 @@ def article_list(request):
     articles = Headline.objects.all()[::-1]
     lista = {"object_list": articles}
     return render(request, "../index.html", lista)
-
-

@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup as bs
 
 url = "https://finance.yahoo.com"
 content = requests.get(url).content
+pprint.pprint(content)
 soup = bs(content, "html.parser")
 cadru_news = soup.find_all("div", {"class": "Cf"})
 cadru_mare = soup.find_all("div", "Py(14px) Pos(r)")
