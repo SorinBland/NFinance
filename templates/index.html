@@ -2,7 +2,8 @@
 <html>
 
 <head>
-    <title>Finance News</title>
+    <title>NFinance</title>
+    <link rel="icon" href="data:,">
     <script src="https://kit.fontawesome.com/34f40f3751.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href='{% static "css/style_noutati.css" %}'>
     <style>
@@ -45,10 +46,11 @@
 </head>
 
 <body>
-<h1 class="header">Finance News</h1>
-<div class="menu">
+<h1 class="header">NFinance</h1>
+<div class="menup">
     <ul>
-        <li><a href="index.html">Prima pagina</a></li>
+        <li><a href="">News</a></li>
+        <li><a href="{% url 'tickers' %}">Tickers</a></li>
     </ul>
 </div>
 <br>
