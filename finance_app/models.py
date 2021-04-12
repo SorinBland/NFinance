@@ -14,20 +14,23 @@ class Headline(models.Model):
 
 
 class Ticker(models.Model):
-    title = models.CharField(max_length=100, blank=True, null=True)
-    current_price = models.CharField(max_length=30, blank=True, null=True)
-    previous_close = models.CharField(max_length=30, blank=True, null=True)
-    open = models.CharField(max_length=30, blank=True, null=True)
-    bid = models.CharField(max_length=30, blank=True, null=True)
-    ask = models.CharField(max_length=30, blank=True, null=True)
-    volume = models.CharField(max_length=30, blank=True, null=True)
-    avg_volume = models.CharField(max_length=30, blank=True, null=True)
-    market_cap = models.CharField(max_length=30, blank=True, null=True)
-    earnings_date = models.CharField(max_length=30, blank=True, null=True)
-    year_target_est = models.CharField(max_length=30, blank=True, null=True)
-    year_range = models.CharField(max_length=30, blank=True, null=True)
-    day_range = models.CharField(max_length=30, blank=True, null=True)
+    title = models.CharField(max_length=100, blank=True, null=False)
+    current_price = models.CharField(max_length=30, blank=True, null=False)
+    previous_close = models.CharField(max_length=30, blank=True, null=False)
+    open = models.CharField(max_length=30, blank=True, null=False)
+    bid = models.CharField(max_length=30, blank=True, null=False)
+    ask = models.CharField(max_length=30, blank=True, null=False)
+    volume = models.CharField(max_length=30, blank=True, null=False)
+    avg_volume = models.CharField(max_length=30, blank=True, null=False)
+    market_cap = models.CharField(max_length=30, blank=True, null=False)
+    earnings_date = models.CharField(max_length=30, blank=True, null=False)
+    year_target_est = models.CharField(max_length=30, blank=True, null=False)
+    year_range = models.CharField(max_length=30, blank=True, null=False)
+    day_range = models.CharField(max_length=30, blank=True, null=False)
+    tick = models.CharField(max_length=10, blank=True, null=True)
 
+    def __str__(self):
+        return self.title
 
 
 class Graphs(models.Model):  # Trebuie legat de Ticker

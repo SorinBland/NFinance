@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup as Bs
 from django.db import IntegrityError
 import os
 import django
-
+import re
 os.environ['DJANGO_SETTINGS_MODULE'] = 'Finance_news_aggregator.settings'
 django.setup()
 
@@ -13,10 +13,10 @@ from finance_app.models import Ticker
 requests.packages.urllib3.disable_warnings()
 
 
-def scrape_ticker():
+def scrape_ticker(user_input):
     session = requests.Session()
     session.headers = {"User-Agent": "Googlebot/2.1 (+http://www.google.com/bot.html)"}
-    url = "https://finance.yahoo.com/quote/ASRT?p=ASRT"
+    url = f"https://finance.yahoo.com/quote/{user_input}?p={user_input}"
     soup = Bs(session.get(url, verify=False).content, "html.parser")
     cadru_mare = soup.find_all("div", {"id": "quote-summary"})
     cadru_titlu = soup.find_all("div", {"class": "D(ib)"})
@@ -26,7 +26,10 @@ def scrape_ticker():
     for elem in cadru_titlu:
         try:
             title = elem.find("h1").text
-            new_ticker.title = title
+            tick_from_title = re.findall(r'\(.*?\)', title)
+            for tick in tick_from_title:
+                new_ticker.tick = str(tick).strip("()")
+                new_ticker.title = title
         except AttributeError:
             continue
 

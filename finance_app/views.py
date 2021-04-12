@@ -8,17 +8,15 @@ from finance_app.scraper_tickers import scrape_ticker
 requests.packages.urllib3.disable_warnings()
 
 
-def scraper_ticker_view(request):
-    scrape_ticker()
-
-    return redirect(ticker_list)
-
-
+# rezultatul care apare dupa introducerea inputului
 def ticker_list(request):
+    Ticker.objects.all().delete()
+    ticker = request.POST.get('ticker')
+    scrape_ticker(ticker)
+    graph_url = f'https://www.tradingview.com/symbols/{ticker}/'
     ticker_info = Ticker.objects.all()
-    lista = {"ticker_list": ticker_info}
-
-    return render(request, "tickers.html", lista)
+    context = {"ticker_list": ticker_info, 'graph_url': graph_url}
+    return render(request, "tickers.html", context)
 
 
 def scraper_view(request):
