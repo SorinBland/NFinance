@@ -2,9 +2,12 @@ from django.db import models
 
 
 # Create your models here.
+from django.utils import timezone
+
+
 class Headline(models.Model):
     title = models.CharField(max_length=100, unique=True)
-    # date = models.DateField()
+    datetime = models.DateTimeField(default=timezone.now) #scrape time here and display
     head_img = models.URLField(unique=True)
     start_paragraph = models.CharField(max_length=100, unique=True)
     url = models.URLField(unique=True)
@@ -28,10 +31,8 @@ class Ticker(models.Model):
     year_range = models.CharField(max_length=30, blank=True, null=False)
     day_range = models.CharField(max_length=30, blank=True, null=False)
     tick = models.CharField(max_length=10, blank=True, null=True)
+    company_profile = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.title
 
-
-class Graphs(models.Model):  # Trebuie legat de Ticker
-    ticker_graph = models.TextField()  # maybe

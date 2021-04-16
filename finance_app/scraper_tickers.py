@@ -21,7 +21,7 @@ def scrape_ticker(user_input):
     cadru_mare = soup.find_all("div", {"id": "quote-summary"})
     cadru_titlu = soup.find_all("div", {"class": "D(ib)"})
     cadru_current_price = soup.find_all("div", {"class": "D(ib) Mend(20px)"})
-
+    # cadru_company_profile = soup.find_all("div", {"id": "Col2-11-QuoteModule-Proxy"})
     new_ticker = Ticker()
     for elem in cadru_titlu:
         try:

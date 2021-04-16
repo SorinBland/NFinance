@@ -22,10 +22,6 @@ def ticker_list(request):
 def scraper_view(request):
     scrape()
 
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(scrape, 'interval', minutes=10)
-    scheduler.start()
-
     return redirect("../")
 
 

@@ -1,5 +1,5 @@
 {% load static %}
-<html>
+<html lang="en">
 
 <head>
     <title>NFinance</title>
@@ -47,6 +47,7 @@
 
 <body>
 <h1 class="header">NFinance</h1>
+
 <div class="menup">
     <ul>
         <li><a href="">News</a></li>
@@ -66,8 +67,8 @@
         {% for object in object_list %}
 
         <div class="card">
-            <a href="{{ object.url }}"><h3 class="subtitlu">{{ object.title }}</h3></a>
-            <img src="{{ object.head_img }}" style="padding: 10px 20px 20px 0">
+            <a href="{{ object.url }}" target="_blank"><h3 class="subtitlu">{{ object.title }}</h3></a>
+            <img alt="head_img" src="{{ object.head_img }}" style="padding: 10px 20px 20px 0">
             <p>{{object.start_paragraph}}</p>
         </div>
 

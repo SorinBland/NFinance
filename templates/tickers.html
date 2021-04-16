@@ -45,6 +45,8 @@
         table {
             border-collapse: collapse;
             font-family: Tahoma, Geneva, sans-serif;
+            width: 500px;
+            height: 370px;
         }
 
         table td {
@@ -100,75 +102,63 @@
         </div>
     </form>
 
-
     <br>
     {% for ticker in ticker_list %}
     {% if ticker.title %}
     <span style="display: inline-block">
-    <table style="margin-left: 20px">
-        <thead>
-        <tr>
-            <th>{{ticker.title}}</th>
-        </tr>
-        </thead>
+        <table style="margin: 20px">
 
-        <tbody>
-        <tr>
-            <td>Current price: {{ticker.current_price}}</td>
-            <td>Avg. Volume: {{ticker.avg_volume}}</td>
-        </tr>
-        <tr>
-            <td>Previous Close: {{ticker.previous_close}}</td>
-            <td>Market Cap: {{ticker.market_cap}}</td>
-        </tr>
-        <tr>
-            <td>Open Price: {{ticker.open}}</td>
-            <td>Earnings Date: {{ticker.earnings_date}}</td>
-        </tr>
-        <tr>
-            <td>Bid: {{ticker.bid}}</td>
-            <td>1y Target Est: {{ticker.year_target_est}}</td>
-        </tr>
-        <tr>
-            <td>Ask: {{ticker.ask}}</td>
-            <td>52 Week Range: {{ticker.year_range}}</td>
-        </tr>
-        <tr>
-            <td>Volume: {{ticker.volume}}</td>
-            <td>Day's Range: {{ticker.day_range}}</td>
-        </tr>
-        </tbody>
-    </table>
+            <tbody>
+            <tr>
+                <td>Current price: {{ticker.current_price}}</td>
+                <td>Avg. Volume: {{ticker.avg_volume}}</td>
+            </tr>
+            <tr>
+                <td>Previous Close: {{ticker.previous_close}}</td>
+                <td>Market Cap: {{ticker.market_cap}}</td>
+            </tr>
+            <tr>
+                <td>Open Price: {{ticker.open}}</td>
+                <td>Earnings Date: {{ticker.earnings_date}}</td>
+            </tr>
+            <tr>
+                <td>Bid: {{ticker.bid}}</td>
+                <td>1y Target Est: {{ticker.year_target_est}}</td>
+            </tr>
+            <tr>
+                <td>Ask: {{ticker.ask}}</td>
+                <td>52 Week Range: {{ticker.year_range}}</td>
+            </tr>
+            <tr>
+                <td>Volume: {{ticker.volume}}</td>
+                <td>Day's Range: {{ticker.day_range}}</td>
+            </tr>
+            </tbody>
+        </table>
     </span>
 
-    <span style="margin-left: 20px">
-    <!-- TradingView Widget BEGIN -->
-
-        <div class="tradingview-widget-container" style="display: inline-block">
-          <div id="tradingview_411c1"></div>
-          <div class="tradingview-widget-copyright"><a href="{{graph_url}}" rel="noopener"
-                                                       target="_blank"><span class="blue-text">{{ticker}}</span></a> by TradingView</div>
+    <span style="display: inline-block">
+<!-- TradingView Widget BEGIN -->
+        <div class="tradingview-widget-container" style="margin-right: 20px">
+          <div id="tradingview_8d77b"></div>
+          <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/{{graph_url}}/" rel="noopener"
+                                                       target="_blank"><span class="blue-text">{{ticker.tick}} Chart</span></a> by TradingView</div>
           <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
           <script type="text/javascript">
-          new TradingView.MediumWidget(
+          new TradingView.widget(
               {
-                  "symbols":
-                      [
-                          "{{ticker.tick}}|1D"
-                      ]
-                  ,
-                  "chartOnly": false,
-                  "width": 1000,
+                  "width": 1320,
                   "height": 400,
+                  "symbol": "{{ticker.tick}}",
+                  "interval": "D",
+                  "timezone": "Etc/UTC",
+                  "theme": "light",
+                  "style": "1",
                   "locale": "en",
-                  "colorTheme": "light",
-                  "gridLineColor": "rgba(109, 158, 235, 1)",
-                  "trendLineColor": "#2196f3",
-                  "fontColor": "rgba(0, 0, 0, 1)",
-                  "underLineColor": "rgba(109, 158, 235, 1)",
-                  "isTransparent": true,
-                  "autosize": false,
-                  "container_id": "tradingview_411c1"
+                  "toolbar_bg": "#f1f3f6",
+                  "enable_publishing": false,
+                  "allow_symbol_change": false,
+                  "container_id": "tradingview_8d77b"
               }
           );
           </script>

@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'finance_app',
+    'finance_app.apps.FinanceAppConfig',
 
 ]
 

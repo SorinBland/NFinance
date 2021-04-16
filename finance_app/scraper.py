@@ -3,17 +3,13 @@ from django.core.exceptions import ValidationError
 from bs4 import BeautifulSoup as Bs
 from django.db import IntegrityError
 from django.utils.text import Truncator
-import os
-import django
-
-os.environ['DJANGO_SETTINGS_MODULE'] = 'Finance_news_aggregator.settings'
-django.setup()
-
+import datetime
 from finance_app.models import Headline
 
 
 def scrape():
-    print('Scraping')
+    time = datetime.datetime.now()
+    print(f'Scraping {time.time()}')
     session = requests.Session()
     session.headers = {"User-Agent": "Googlebot/2.1 (+http://www.google.com/bot.html)"}
     url = "https://finance.yahoo.com"
@@ -36,7 +32,7 @@ def scrape():
 
             new_head.start_paragraph = Truncator(new_head.start_paragraph).chars(800)
             new_head.save()
-
+            print(f"Headline created {new_head.title}")
         except ValidationError:
             continue
 
