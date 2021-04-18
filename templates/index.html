@@ -15,7 +15,7 @@
             list-style-type: none;
             margin: 0;
             padding: 0;
-            background-color: rgb(228, 101, 17);
+            background-color: #454545;
             overflow: hidden;
         }
 
@@ -34,7 +34,7 @@
             color: white;
             text-align: center;
             padding: 14px 16px;
-            background-color: rgb(228, 101, 17);
+            background-color: #454545;
             text-decoration: none;
         }
 
@@ -56,10 +56,7 @@
 </div>
 <br>
 <br>
-<div style="text-align: center;"><h2 class="subtitlu">
-    <a href="{% url 'scraper' %}">Scrape News</a>
-</h2>
-</div>
+
 
 <div class="row">
     <div class="wrapper">
@@ -68,7 +65,8 @@
 
         <div class="card">
             <a href="{{ object.url }}" target="_blank"><h3 class="subtitlu">{{ object.title }}</h3></a>
-            <img alt="head_img" src="{{ object.head_img }}" style="padding: 10px 20px 20px 0">
+            <p style="font-size: 10px">{{object.datetime}}</p>
+            <img alt="head_img" src="{{ object.head_img }}" style="padding: 10px 20px 20px 0" width="200" height="150">
             <p>{{object.start_paragraph}}</p>
         </div>
 
@@ -80,11 +78,11 @@
 
 <div class="footer">
     <a href="https://www.facebook.com/sorinbland" target="blank"><i class="fab fa-facebook-square"
-                                                                    style="font-size: 36px;color: rgb(228, 101, 17);"></i></a>
+                                                                    style="font-size: 36px;color: rgb(255, 255, 255);"></i></a>
     <a href="https://www.instagram.com/hapcius/" target="blank"><i class="fab fa-instagram-square"
-                                                                   style="font-size: 36px;color: rgb(228, 101, 17);"></i></a>
+                                                                   style="font-size: 36px;color: rgb(255, 255, 255);"></i></a>
     <a href="https://www.reddit.com/user/Ciucku" target="blank"><i class="fab fa-reddit-square"
-                                                                   style="font-size: 36px;color: rgb(228, 101, 17);"></i></a>
+                                                                   style="font-size: 36px;color: rgb(255, 255, 255);"></i></a>
 
 </div>
 </html>

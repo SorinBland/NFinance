@@ -1,8 +1,7 @@
 import requests
 from django.shortcuts import render, redirect
 from finance_app.models import Headline, Ticker
-from apscheduler.schedulers.background import BackgroundScheduler
-from finance_app.scraper import scrape
+from finance_app.scraper import scrape, scrape_wsj
 from finance_app.scraper_tickers import scrape_ticker
 
 requests.packages.urllib3.disable_warnings()
@@ -21,12 +20,12 @@ def ticker_list(request):
 
 def scraper_view(request):
     scrape()
-
+    scrape_wsj()
     return redirect("../")
 
 
 def article_list(request):
     articles = Headline.objects.all()[::-1]
-    lista = {"object_list": articles}
+    context = {"object_list": articles}
 
-    return render(request, "index.html", lista)
+    return render(request, "index.html", context)
