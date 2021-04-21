@@ -7,7 +7,7 @@ from django.utils import timezone
 
 class Headline(models.Model):
     title = models.CharField(max_length=100, unique=True)
-    datetime = models.DateTimeField(default=timezone.now) #scrape time here and display
+    datetime = models.DateTimeField(default=timezone.now)
     head_img = models.URLField(unique=True)
     start_paragraph = models.CharField(max_length=100, unique=True)
     url = models.URLField(unique=True)
