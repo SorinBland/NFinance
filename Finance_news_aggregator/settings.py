@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+from local_settings import *
 
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'ugw#!%pc0)@4fvfr3ksc4481(kka9od#tuw)#bhf5&lsu_7%i-'
+SECRET_KEY = SECRET_KEY_LOCAL
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -120,13 +121,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join("finance_app", 'static')]
+
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 MAILER_EMAIL_BACKEND = EMAIL_BACKEND
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'sorin.bland@gmail.com'
-EMAIL_HOST_PASSWORD = 'Yu-gi-oh-gx1'
+EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD_LOCAL
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

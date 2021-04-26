@@ -104,7 +104,7 @@ def scrape_wsj():
             new_head_wsj2.title = title2
             new_head_wsj2.start_paragraph = paragraph2
             new_head_wsj2.start_paragraph = Truncator(new_head_wsj2.start_paragraph).chars(800)
-            if new_head_wsj2.start_paragraph.rsplit(".")[-1].isnumeric():
+            if new_head_wsj2.start_paragraph.rsplit(".")[-1].isnumeric(): #fix for minutes ago in paragraph
                 new_head_wsj2.start_paragraph = "".join(new_head_wsj2.start_paragraph.rsplit(".")[:-1])
             new_head_wsj2.url = url2
             new_head_wsj2.head_img = img2
