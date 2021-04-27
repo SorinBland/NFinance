@@ -50,7 +50,7 @@
 
 <div class="menup">
     <ul>
-        <li><a href="">News</a></li>
+        <li><a href="/">News</a></li>
 
         {% if user.is_authenticated %}
             <li><a href="{% url 'tickers' %}">Tickers</a></li>
@@ -67,12 +67,13 @@
 
 
 <div class="row">
-    <form method="POST" action="{% url 'filter' %}" style="margin: 20px">
+    <form method="POST" action="" style="margin: 20px">
         {% csrf_token %}
         {{ form.as_p }}
         <div class="wrap">
             <div class="search">
-                <input id="filter" type="text" class="searchTerm" placeholder="Filter news.." name="filter" required>
+                <input id="filter" type="text" class="searchTerm" placeholder="Filter news.." name="filter"
+                       required>
                 <button type="submit" class="searchButton">
                     <i class="fa fa-search"></i>
                 </button>
@@ -81,7 +82,7 @@
     </form>
 
     <div class="wrapper">
-        {% for object in object_list %}
+        {% for object in articles_filtered %}
 
             <div class="card">
                 <a href="{{ object.url }}" target="_blank"><h3 class="subtitlu"

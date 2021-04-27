@@ -1,10 +1,10 @@
-from django.urls import path, include
-
-from finance_app.views import article_list, scraper_view, ticker_list
+from django.urls import path
+from finance_app.views import article_list, scraper_view, ticker_list, filter_news
 
 urlpatterns = [
     path("scraper/", scraper_view, name="scraper"),
     path("", article_list, name="index"),
+    path("filter/", filter_news, name='filter'),
     path("tickers/", ticker_list, name="tickers"),
 
 ]

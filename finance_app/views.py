@@ -29,3 +29,11 @@ def article_list(request):
     context = {"object_list": articles}
 
     return render(request, "index.html", context)
+
+
+def filter_news(request):
+    filter_term = request.POST.get('filter')
+    articles_filtered = Headline.objects.filter(title__icontains=f"{filter_term}")
+    context = {'articles_filtered': articles_filtered}
+
+    return render(request, "filter.html", context)
