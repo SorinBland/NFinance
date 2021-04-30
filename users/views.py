@@ -9,9 +9,11 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from users.forms import CustomUserCreationForm
 from .tokens import account_activation_token
+
 UserModel = get_user_model()
 
 
+# User register method
 def register(request):
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
@@ -42,6 +44,7 @@ def register(request):
     )
 
 
+# User account activation by email
 def activate(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()

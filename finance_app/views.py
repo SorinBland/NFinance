@@ -7,7 +7,7 @@ from finance_app.scraper_tickers import scrape_ticker
 requests.packages.urllib3.disable_warnings()
 
 
-# rezultatul care apare dupa introducerea inputului
+# Ticker info after user input is entered
 def ticker_list(request):
     Ticker.objects.all().delete()
     ticker = request.POST.get('ticker')
@@ -18,12 +18,14 @@ def ticker_list(request):
     return render(request, "tickers.html", context)
 
 
+# Scraper method called every 10 minutes by BackgroundScheduler
 def scraper_view(request):
     scrape()
     scrape_wsj()
     return redirect("../")
 
 
+# Articles that appear on the front page after being scraped
 def article_list(request):
     articles = Headline.objects.all()[::-1]
     context = {"object_list": articles}
@@ -31,9 +33,22 @@ def article_list(request):
     return render(request, "index.html", context)
 
 
+# Filter method for filtered news
 def filter_news(request):
     filter_term = request.POST.get('filter')
     articles_filtered = Headline.objects.filter(title__icontains=f"{filter_term}")
     context = {'articles_filtered': articles_filtered}
 
     return render(request, "filter.html", context)
+
+
+# Filter for crypto page
+def crypto(request):
+    crypto_news = Headline.objects.filter(title__icontains="crypto") | \
+                  Headline.objects.filter(title__icontains="bitcoin") | \
+                  Headline.objects.filter(title__icontains="ethereum") | \
+                  Headline.objects.filter(title__icontains="coin")
+
+    context = {'crypto_news': crypto_news}
+
+    return render(request, 'crypto.html', context)

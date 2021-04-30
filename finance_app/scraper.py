@@ -6,6 +6,8 @@ from django.utils.text import Truncator
 import datetime
 from finance_app.models import Headline
 
+# Scraper file with its methods
+
 
 def scrape():
     time = datetime.datetime.now()

@@ -1,8 +1,7 @@
 from django.apps import AppConfig
 
 
-
-
+# Scheduling the scraper to scrape every 10 minutes
 class FinanceAppConfig(AppConfig):
     name = 'finance_app'
 

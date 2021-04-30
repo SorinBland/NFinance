@@ -6,6 +6,7 @@
     <link rel="icon" href="data:,">
     <script src="https://kit.fontawesome.com/34f40f3751.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href='{% static "css/style_noutati.css" %}'>
+
     <style>
         * {
             box-sizing: border-box;
@@ -17,11 +18,12 @@
             padding: 0;
             background-color: #454545;
             overflow: hidden;
+            height: 50px;
         }
 
         li {
             float: left;
-            border-right: 1px solid #bbb;
+
         }
 
         li:last-child {
@@ -38,6 +40,14 @@
             text-decoration: none;
         }
 
+        li a:hover:not(.active) {
+            background-color: #111;
+        }
+
+        .active {
+            background-color: #111;
+        }
+
         a {
             text-decoration: none;
         }
@@ -46,55 +56,55 @@
 </head>
 
 <body>
-<h1 class="header">NFinance</h1>
+{#<h1 class="header">NFinance</h1>#}
 
 <div class="menup">
     <ul>
-        <li><a href="">News</a></li>
+        <li><img src={%  static "img/logo2.png" %} alt="logo" style="padding: 10px 16px; display: block; top: 2px"></li>
+        <li><a class="active" href="">News</a></li>
+        <li><a href="{% url 'crypto' %}">Crypto</a></li>
 
         {% if user.is_authenticated %}
             <li><a href="{% url 'tickers' %}">Tickers</a></li>
-            <li><a href="{% url 'logout' %}">Logout</a></li>
+            <li style="float: right"><a href="{% url 'logout' %}">Logout</a></li>
         {% else %}
-            <li><a href="{% url 'register' %}"> Sign Up</a></li>
-            <li><a href="{% url 'login' %}"> Login</a></li>
-            <li><a href="{% url 'password_reset' %}">Forgot password?</a></li>
+            <li style="float: right"><a href="{% url 'register' %}"> Sign Up</a></li>
+            <li style="float: right"><a href="{% url 'login' %}"> Login</a></li>
+
         {% endif %}
+
+        <li style="width: 800px">
+            <form method="POST" action="{% url 'filter' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="wraps">
+                    <div class="search">
+                        <input id="filter" type="text" class="searchTerm" placeholder="Search for news.." name="filter"
+                               required>
+                        <button type="submit" class="searchButton">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </li>
     </ul>
 </div>
 <br>
 <br>
 
-
 <div class="row">
-    <form method="POST" action="{% url 'filter' %}" style="margin: 20px">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <div class="wrap">
-            <div class="search">
-                <input id="filter" type="text" class="searchTerm" placeholder="Filter news.." name="filter" required>
-                <button type="submit" class="searchButton">
-                    <i class="fa fa-search"></i>
-                </button>
-            </div>
-        </div>
-    </form>
-
     <div class="wrapper">
         {% for object in object_list %}
-
-            <div class="card">
+            <div class="cards">
                 <a href="{{ object.url }}" target="_blank"><h3 class="subtitlu"
-                                                               style="margin: 0px">{{ object.title }}</h3>
-                </a>
+                                                               style="margin: 0px">{{ object.title }}</h3></a>
                 <p style="font-size: 10px">{{ object.datetime }}</p>
-                <img alt="head_img" src="{{ object.head_img }}" style="padding: 10px 20px 20px 0" width="200"
-                     height="150">
+                <img alt="{{ object.title }}" src="{{ object.head_img }}" style="padding: 10px 20px 20px 0" width="300px"
+                     height="auto">
                 <p>{{ object.start_paragraph }}</p>
             </div>
-
         {% endfor %}
-
     </div>
 </div>
 </body>
@@ -106,6 +116,5 @@
                                                                    style="font-size: 36px;color: rgb(255, 255, 255);"></i></a>
     <a href="https://www.reddit.com/user/Ciucku" target="blank"><i class="fab fa-reddit-square"
                                                                    style="font-size: 36px;color: rgb(255, 255, 255);"></i></a>
-
 </div>
 </html>

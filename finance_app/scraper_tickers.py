@@ -2,15 +2,12 @@ import requests
 from django.core.exceptions import ValidationError
 from bs4 import BeautifulSoup as Bs
 from django.db import IntegrityError
-import os
-import django
 import re
-os.environ['DJANGO_SETTINGS_MODULE'] = 'Finance_news_aggregator.settings'
-django.setup()
-
 from finance_app.models import Ticker
 
 requests.packages.urllib3.disable_warnings()
+
+# Ticker scraper fle
 
 
 def scrape_ticker(user_input):
@@ -21,7 +18,6 @@ def scrape_ticker(user_input):
     cadru_mare = soup.find_all("div", {"id": "quote-summary"})
     cadru_titlu = soup.find_all("div", {"class": "D(ib)"})
     cadru_current_price = soup.find_all("div", {"class": "D(ib) Mend(20px)"})
-    # cadru_company_profile = soup.find_all("div", {"id": "Col2-11-QuoteModule-Proxy"})
     new_ticker = Ticker()
     for elem in cadru_titlu:
         try:
