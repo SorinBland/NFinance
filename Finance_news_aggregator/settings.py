@@ -26,7 +26,7 @@ SECRET_KEY = SECRET_KEY_LOCAL
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["nfinance.pythonanywhere.com", "127.0.0.1"]
 
 # Application definition
 
