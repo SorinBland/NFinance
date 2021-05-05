@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'finance_app.apps.FinanceAppConfig',
     'users',
 
+
 ]
 
 APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
@@ -53,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 ROOT_URLCONF = 'Finance_news_aggregator.urls'
@@ -135,3 +137,4 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'sorin.bland@gmail.com'
 EMAIL_HOST_PASSWORD = EMAIL_HOST_PASSWORD_LOCAL
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+

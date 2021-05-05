@@ -6,9 +6,8 @@ from django.utils.text import Truncator
 import datetime
 from finance_app.models import Headline
 
+
 # Scraper file with its methods
-
-
 def scrape():
     time = datetime.datetime.now()
     print(f'Scraping from Yahoo {time.time()}')
@@ -32,7 +31,7 @@ def scrape():
             new_head.url = f"https://finance.yahoo.com/{url}"
             new_head.start_paragraph = paragraf
 
-            new_head.start_paragraph = Truncator(new_head.start_paragraph).chars(800)
+            new_head.start_paragraph = Truncator(new_head.start_paragraph).chars(200)
             new_head.save()
             print(f"Headline created from Yahoo: {new_head.title}")
 
@@ -73,7 +72,7 @@ def scrape_wsj():
             new_head_wsj1 = Headline()
             new_head_wsj1.title = title
             new_head_wsj1.start_paragraph = paragraph
-            new_head_wsj1.start_paragraph = Truncator(new_head_wsj1.start_paragraph).chars(800)
+            new_head_wsj1.start_paragraph = Truncator(new_head_wsj1.start_paragraph).chars(200)
             new_head_wsj1.start_paragraph = "".join(new_head_wsj1.start_paragraph.rsplit(".")[:-1]) + "."
 
             new_head_wsj1.url = url
@@ -104,7 +103,7 @@ def scrape_wsj():
             new_head_wsj2 = Headline()
             new_head_wsj2.title = title2
             new_head_wsj2.start_paragraph = paragraph2
-            new_head_wsj2.start_paragraph = Truncator(new_head_wsj2.start_paragraph).chars(800)
+            new_head_wsj2.start_paragraph = Truncator(new_head_wsj2.start_paragraph).chars(200)
             new_head_wsj2.start_paragraph = "".join(new_head_wsj2.start_paragraph.rsplit(".")[:-1]) + "."
             new_head_wsj2.url = url2
             new_head_wsj2.head_img = img2

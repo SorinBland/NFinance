@@ -1,11 +1,12 @@
 {% load static %}
-<html>
+<html lang="eng">
 
 <head>
     <title>Tickers</title>
     <link rel="icon" href="data:,">
     <script src="https://kit.fontawesome.com/34f40f3751.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href='{% static "css/style_noutati.css" %}'>
+
     <style>
         * {
             box-sizing: border-box;
@@ -39,42 +40,6 @@
             text-decoration: none;
         }
 
-        a {
-            text-decoration: none;
-        }
-
-        table {
-            border-collapse: collapse;
-            font-family: Tahoma, Geneva, sans-serif;
-            width: 500px;
-            height: 370px;
-        }
-
-        table td {
-            padding: 15px;
-        }
-
-        table thead td {
-            background-color: #54585d;
-            color: #ffffff;
-            font-weight: bold;
-            font-size: 13px;
-            border: 1px solid #54585d;
-        }
-
-        table tbody td {
-            color: #636363;
-            border: 1px solid #dddfe1;
-        }
-
-        table tbody tr {
-            background-color: #f9fafb;
-        }
-
-        table tbody tr:nth-child(odd) {
-            background-color: #ffffff;
-        }
-
         li a:hover:not(.active) {
             background-color: #111;
         }
@@ -83,11 +48,77 @@
             background-color: #111;
         }
 
+        a {
+            text-decoration: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 34.2%;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+        }
+
+        .company_summary {
+            font-family: Arial, serif;
+            font-size: 0.875em;
+            margin-left: 287px;
+            width: 30%;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            border-radius: 4px;
+            background-color: rgba(0, 0, 0, .25));
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 15px;
+            width: 150px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin-left: 287px;
+        }
+
+        .button span {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .button span:after {
+            content: '\00bb';
+            position: absolute;
+            opacity: 0;
+            top: 0;
+            right: -20px;
+            transition: 0.5s;
+        }
+
+        .button:hover span {
+            padding-right: 25px;
+        }
+
+        .button:hover span:after {
+            opacity: 1;
+            right: 0;
+        }
     </style>
 </head>
 
 <body>
-{#<h1 class="header">NFinance</h1>#}
 <div class="menup">
     <ul>
         <li><img src={% static "img/logo2.png" %} alt="logo" style="padding: 10px 16px; display: block;"></li>
@@ -119,78 +150,204 @@
         </li>
     </ul>
 </div>
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js" async>
+        {
+            "symbols"
+        :
+            [
+                {
+                    "proName": "FOREXCOM:SPXUSD",
+                    "title": "S&P 500"
+                },
+                {
+                    "proName": "FOREXCOM:NSXUSD",
+                    "title": "Nasdaq 100"
+                },
+                {
+                    "proName": "FX_IDC:EURUSD",
+                    "title": "EUR/USD"
+                },
+                {
+                    "proName": "BITSTAMP:BTCUSD",
+                    "title": "BTC/USD"
+                },
+                {
+                    "proName": "BITSTAMP:ETHUSD",
+                    "title": "ETH/USD"
+                }
+            ],
+                "colorTheme"
+        :
+            "light",
+                "isTransparent"
+        :
+            true,
+                "showSymbolLogo"
+        :
+            false,
+                "locale"
+        :
+            "en"
+        }
+    </script>
+</div>
+<!-- TradingView Widget END -->
+<hr style="height:2px; border-width:0; color:gray; background-color:gray;">
 
 <div class="row">
-    <br>
     {% for ticker in ticker_list %}
         {% if ticker.title %}
-            <span style="display: inline-block">
-        <table style="margin: 20px">
-            <tbody>
-            <tr>
-                <td>Current price: {{ ticker.current_price }}</td>
-                <td>Avg. Volume: {{ ticker.avg_volume }}</td>
-            </tr>
-            <tr>
-                <td>Previous Close: {{ ticker.previous_close }}</td>
-                <td>Market Cap: {{ ticker.market_cap }}</td>
-            </tr>
-            <tr>
-                <td>Open Price: {{ ticker.open }}</td>
-                <td>Earnings Date: {{ ticker.earnings_date }}</td>
-            </tr>
-            <tr>
-                <td>Bid: {{ ticker.bid }}</td>
-                <td>1y Target Est: {{ ticker.year_target_est }}</td>
-            </tr>
-            <tr>
-                <td>Ask: {{ ticker.ask }}</td>
-                <td>52 Week Range: {{ ticker.year_range }}</td>
-            </tr>
-            <tr>
-                <td>Volume: {{ ticker.volume }}</td>
-                <td>Day's Range: {{ ticker.day_range }}</td>
-            </tr>
-            </tbody>
-        </table>
-    </span>
+            <div class="titlu_ticker"> {{ ticker.title }}</div>
+            <hr style="width: 1310px; height:2px; border-width:0; color:gray; background-color:gray; margin-left: 287px;">
+            {% if ticker.company_profile %}
+                <div class="company_summary"> {{ ticker.company_profile }} </div>
+            {% else %}
+                <div class="company_summary"> {{ ticker.title }} </div>
+            {% endif %}
 
-            <span style="display: inline-block">
-<!-- TradingView Widget BEGIN -->
-        <div class="tradingview-widget-container" style="margin-right: 20px">
-          <div id="tradingview_8d77b"></div>
-          <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/{{ graph_url }}/"
-                                                       rel="noopener"
-                                                       target="_blank"><span
-                  class="blue-text">{{ ticker.tick }} Chart</span></a> by TradingView</div>
-          <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-          <script type="text/javascript">
-          new TradingView.widget(
-              {
-                  "width": 1320,
-                  "height": 400,
-                  "symbol": "{{ticker.tick}}",
-                  "interval": "D",
-                  "timezone": "Etc/UTC",
-                  "theme": "light",
-                  "style": "1",
-                  "locale": "en",
-                  "toolbar_bg": "#f1f3f6",
-                  "enable_publishing": false,
-                  "allow_symbol_change": false,
-                  "container_id": "tradingview_8d77b"
-              }
-          );
-          </script>
-        </div>
-    </span>
+            <a href="https://finance.yahoo.com/quote/{{ ticker.tick }}/profile?p={{ ticker.tick }}">
+                <button class="button">Read more..</button>
+            </a>
+
+            <!-- TradingView Widget BEGIN -->
+            <div class="tradingview-widget-container" style="margin-right: 20px; margin-bottom: 10px">
+                <div id="tradingview_8d77b"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                <script type="text/javascript">
+                    new TradingView.widget(
+                        {
+                            "width": 1310,
+                            "height": 400,
+                            "symbol": "{{ticker.tick}}",
+                            "interval": "D",
+                            "timezone": "Etc/UTC",
+                            "theme": "light",
+                            "style": "1",
+                            "locale": "en",
+                            "toolbar_bg": "#f1f3f6",
+                            "enable_publishing": false,
+                            "allow_symbol_change": false,
+                            "container_id": "tradingview_8d77b"
+                        }
+                    );
+                </script>
+            </div>
             <!-- TradingView Widget END -->
+
+            <table style="float: left; margin-left: 287px;">
+                <tr>
+                    <td>Current price:</td>
+                    {% if not ticker.current_price %}
+                        <td>N/A</td>
+                    {% else %}
+                        <td>{{ ticker.current_price }}</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Previous Close:</td>
+                    {% if not ticker.previous_close %}
+                        <td>N/A</td>
+                    {% else %}
+                        <td>{{ ticker.previous_close }}</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Open Price:</td>
+                    {% if not ticker.open %}
+                        <td>N/A</td>
+                    {% else %}
+                        <td> {{ ticker.open }}</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Bid:</td>
+                    {% if not ticker.bid %}
+                        <td>N/A</td>
+                    {% else %}
+                        <td>{{ ticker.bid }}</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Ask:</td>
+                    {% if not ticker.ask %}
+                        <td>N/A</td>
+                    {% else %}
+                        <td>{{ ticker.ask }}</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Volume:</td>
+                    {% if not ticker.volume %}
+                        <td>N/A</td>
+                    {% else %}
+                        <td>{{ ticker.volume }}</td>
+                    {% endif %}
+                </tr>
+            </table>
+
+
+            <table style="float: left; margin-left: 10px">
+                <tr>
+                    <td>Avg. Volume:</td>
+                    {% if not ticker.avg_volume %}
+                        <td>N/A</td>
+                    {% else %}
+                        <td>{{ ticker.avg_volume }}</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Market Cap:</td>
+                    {% if not ticker.market_cap %}
+                        <td>N/A</td>
+                    {% else %}
+                        <td>{{ ticker.market_cap }}</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Earnings Date:</td>
+                    {% if not ticker.earnings_date %}
+                        <td>N/A</td>
+                    {% else %}
+                        <td>{{ ticker.earnings_date }}</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>1y Target Est:</td>
+                    {% if not ticker.year_target_este %}
+                        <td>N/A</td>
+                    {% else %}
+                        <td>{{ ticker.year_target_est }}</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>52 Week Range:</td>
+                    {% if not ticker.year_range %}
+                        <td>N/A</td>
+                    {% else %}
+                        <td>{{ ticker.year_range }}</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <td>Day's Range:</td>
+                    {% if not ticker.day_range %}
+                        <td>N/A</td>
+                    {% else %}
+                        <td>{{ ticker.day_range }}</td>
+                    {% endif %}
+                </tr>
+            </table>
+
+
         {% endif %}
     {% endfor %}
 
 </div>
+
 </body>
-<div class="footer" style="position: fixed; bottom: 0; left: 0; width: 100%">
+<div class="footer">
     <a href="https://www.facebook.com/sorinbland" target="blank"><i class="fab fa-facebook-square"
                                                                     style="font-size: 36px;color: rgb(255, 255, 255);"></i></a>
     <a href="https://www.instagram.com/hapcius/" target="blank"><i class="fab fa-instagram-square"

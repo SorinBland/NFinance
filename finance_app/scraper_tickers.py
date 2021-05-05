@@ -3,13 +3,16 @@ from django.core.exceptions import ValidationError
 from bs4 import BeautifulSoup as Bs
 from django.db import IntegrityError
 import re
+
+from django.utils.text import Truncator
+
 from finance_app.models import Ticker
+import yfinance
 
 requests.packages.urllib3.disable_warnings()
 
-# Ticker scraper fle
 
-
+# Ticker scraper file
 def scrape_ticker(user_input):
     session = requests.Session()
     session.headers = {"User-Agent": "Googlebot/2.1 (+http://www.google.com/bot.html)"}
@@ -18,7 +21,19 @@ def scrape_ticker(user_input):
     cadru_mare = soup.find_all("div", {"id": "quote-summary"})
     cadru_titlu = soup.find_all("div", {"class": "D(ib)"})
     cadru_current_price = soup.find_all("div", {"class": "D(ib) Mend(20px)"})
+    url = f"https://finance.yahoo.com/quote/{user_input}/profile?p={user_input}"
+    soup = Bs(session.get(url, verify=False).content, "html.parser")
+    cadru_summary = soup.find_all("p", {"class": "Mt(15px)"})
     new_ticker = Ticker()
+
+    for summary in cadru_summary:
+        try:
+            ticker_summary = summary.text
+            new_ticker.company_profile = ticker_summary
+            new_ticker.company_profile = Truncator(new_ticker.company_profile).chars(400)
+        except AttributeError:
+            continue
+
     for elem in cadru_titlu:
         try:
             title = elem.find("h1").text
@@ -73,4 +88,5 @@ def scrape_ticker(user_input):
 
         except IndexError:
             continue
+
     new_ticker.save()
