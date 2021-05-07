@@ -18,7 +18,7 @@
             padding: 0;
             background-color: #454545;
             overflow: hidden;
-            height: 50px;
+            height: 49px;
         }
 
         li {
@@ -52,22 +52,6 @@
             text-decoration: none;
         }
 
-        table {
-            border-collapse: collapse;
-            border-spacing: 0;
-            width: 34.2%;
-            border: 1px solid #ddd;
-            margin-bottom: 20px;
-
-        }
-
-        th, td {
-            text-align: left;
-            padding: 10px;
-            background-color: white;
-            border: 1px solid #ddd;
-        }
-
         .company_summary {
             font-family: Arial, serif;
             font-size: 0.875em;
@@ -84,7 +68,7 @@
             border: none;
             color: #FFFFFF;
             text-align: center;
-            font-size: 8px;
+            font-size: 9px;
             width: 70px;
             height: 40px;
             transition: all 0.5s;
@@ -110,46 +94,54 @@
         }
 
         .button:hover span {
-            padding-right: 25px;
+            padding-right: 10px;
         }
 
         .button:hover span:after {
             opacity: 1;
             right: 0;
         }
+
+        #more {
+            display: none;
+        }
+
+        #more2 {
+            display: none;
+        }
+
+        #more3 {
+            display: none;
+        }
+
+        p {
+            font-family: 'Bell MT', serif;
+            line-height: 1.6;
+        }
+
+        .div_p {
+            width: 400px;
+        }
+
+
     </style>
 </head>
 
 <body>
 <div class="menup">
     <ul>
-        <li><img src={% static "img/logo2.png" %} alt="logo" style="padding: 10px 16px; display: block;"></li>
+        <a href="{% url 'index' %}">
+            <li><img src={% static "img/logo2.png" %} alt="logo" style="padding: 10px 16px; display: block;"></li>
+        </a>
         <li><a href="/">News</a></li>
         <li><a href="{% url 'crypto' %}">Crypto</a></li>
         {% if user.is_authenticated %}
             <li><a class="active" href="">Tickers</a></li>
             <li style="float: right"><a href="{% url 'logout' %}">Logout</a></li>
         {% else %}
-
             <li style="float: right"><a href="{% url 'register' %}"> Sign Up</a></li>
             <li style="float: right"><a href="{% url 'login' %}"> Login</a></li>
-
         {% endif %}
-        <li style="width: 800px">
-            <form method="POST" action="">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <div class="wraps">
-                    <div class="search">
-                        <input id="tick" type="text" class="searchTerm" placeholder="Search a ticker.." name="ticker"
-                               required>
-                        <button type="submit" class="searchButton">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </li>
     </ul>
 </div>
 <!-- TradingView Widget BEGIN -->
@@ -189,7 +181,7 @@
             true,
                 "showSymbolLogo"
         :
-            false,
+            true,
                 "locale"
         :
             "en"
@@ -197,21 +189,335 @@
     </script>
 </div>
 <!-- TradingView Widget END -->
-<hr style="height:2px; border-width:0; color:gray; background-color:gray;">
+
+
+<div style="margin-left: 666px; margin-top: 20px">
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="wraps" style="width: 80%">
+            <div class="search">
+                <input id="tick" type="text" class="searchTerm" placeholder="Look for a stock ticker.." name="ticker"
+                       required>
+                <button type="submit" class="searchButton">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
 
 <div class="row">
+
     {% for ticker in ticker_list %}
-        {% if ticker.title %}
+        {% if not ticker.title %}
+
+            <div class="wrapper" style="margin-left: 300px;column-gap: 50px">
+                <div style="width: 400px; height: auto">
+                    <h2 class="subtitlu">SPDR S&P 500 ETF</h2>
+                    <table class="styled-table">
+                        <th class="subtitlu">Vitals</th>
+                        <tr>
+                            <td>Issuer</td>
+                            <td><a href="https://etfdb.com/etfs/issuers/state-street-spdr/" target="_blank">State Street
+                                SPDR</a></td>
+                        </tr>
+                        <tr>
+                            <td>Structure</td>
+                            <td>UIT</td>
+                        </tr>
+                        <tr>
+                            <td>Expense Ratio</td>
+                            <td>0.09%</td>
+                        </tr>
+                        <tr>
+                            <td>ETF Website</td>
+                            <td><a href="https://www.ssga.com/us/en/intermediary/etfs/insights"
+                                   target="_blank">Website</a></td>
+                        </tr>
+                        <tr>
+                            <td>Inception</td>
+                            <td>Jan 22, 1993</td>
+                        </tr>
+                        <tr>
+                            <td>Tax Form</td>
+                            <td>1099</td>
+                        </tr>
+                        <tr>
+                            <td>Index Tracked</td>
+                            <td><a href="https://etfdb.com/index/sp-500-index/" target="_blank">S&P 500 Index</a></td>
+                        </tr>
+                    </table>
+                    <table class="styled-table">
+                        <th class="subtitlu">Symbol</th>
+                        <th class="subtitlu">Holding</th>
+                        <th class="subtitlu">%</th>
+                        <tr>
+                            <td><a href="https://etfdb.com/stock/AAPL/" target="_blank"> AAPL</a></td>
+                            <td>Apple Inc.</td>
+                            <td>5.72%</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://etfdb.com/stock/MSFT/" target="_blank">MSFT</a></td>
+                            <td>Microsoft Corporation</td>
+                            <td>5.30%</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://etfdb.com/stock/AMZN/" target="_blank">AMZN</a></td>
+                            <td>Amazon.com, Inc.</td>
+                            <td>4.02%</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://etfdb.com/stock/FB/" target="_blank">FB</a></td>
+                            <td>Facebook Inc. Class A</td>
+                            <td>2.17%</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://etfdb.com/stock/GOOGL/" target="_blank">GOOGL</a></td>
+                            <td>Alphabet Inc. Class A</td>
+                            <td>1.97%</td>
+                        </tr>
+                    </table>
+                    <div class="div_p">
+                        <p>
+                            SPY is one of the largest and most heavily-traded ETFs in the world, offering exposure to
+                            one of the
+                            most
+                            well
+                            known equity benchmarks. While SPY certainly may have appeal to investors seeking to build a
+                            long-term
+                            portfolio
+                            and include large cap U.S. stocks, this fund has become extremely popular with more active
+                            traders
+                            as a
+                            way to
+                            toggle between risky and safe assets. A look at SPY's daily turnover reveals the short
+                            average
+                            holding
+                            period
+                            and the popularity with active traders<span id="dots">...</span><span id="more">
+
+        For those seeking to establish exposure to large cap U.S. stocks, the liquidity of SPY (including the deep
+        options market) is unrivaled. Spreads are always very narrow, and investors can move in and out of this fund
+        with ease. But for those looking to establish a longer-term portfolio, there may be better options within the
+        Large Cap Blend ETFdb Category. In fact, other ETFs targeting the S&P 500 may be more appealing for
+        buy-and-holders. Vanguard's VOO is cheaper by a few basis points, while iShares' IVV is another option. The
+        advantage of these funds is structural in nature; SPY is a UIT, which means it doesn't maintain the flexibility
+        to lend out shares or reinvest dividends. Over the long run, those limitations may allow true ETFs such as VOO
+        and IVV to add a few additional basis points to the bottom line. Another potentially intriguing alternative is
+        RSP, which holds the same companies as SPY but assigns an equal weighting to each. Historically, RSP has
+        performed quite well, generating alpha with surprising consistency.
+
+        SPY is a fine ETF, and is particularly useful for those looking to execute a trade quickly and efficiently. But
+        those in it for the long run have better options available.</span></p>
+                        <button onclick="readMore1()" id="myBtn" style="margin-bottom: 50px">Read more</button>
+                    </div>
+                </div>
+
+                <div style="width: 400px;">
+                    <h2 class="subtitlu">Vanguard Total Stock Market ETF</h2>
+                    <table class="styled-table">
+                        <th class="subtitlu">Vitals</th>
+                        <tr>
+                            <td>Issuer</td>
+                            <td><a href="https://etfdb.com/issuer/vanguard/" target="_blank">Vanguard</a></td>
+                        </tr>
+                        <tr>
+                            <td>Structure</td>
+                            <td>ETF</td>
+                        </tr>
+                        <tr>
+                            <td>Expense Ratio</td>
+                            <td>0.03%</td>
+                        </tr>
+                        <tr>
+                            <td>ETF Website</td>
+                            <td><a href="https://personal.vanguard.com/us/funds/snapshot?FundId=0970&FundIntExt=INT"
+                                   target="_blank">Website</a></td>
+                        </tr>
+                        <tr>
+                            <td>Inception</td>
+                            <td>May 31, 2001</td>
+                        </tr>
+                        <tr>
+                            <td>Tax Form</td>
+                            <td>1099</td>
+                        </tr>
+                        <tr>
+                            <td>Index Tracked</td>
+                            <td><a href="https://etfdb.com/index/crsp-us-total-market-index/" target="_blank">CRSP US
+                                Total
+                                Market Index</a></td>
+                        </tr>
+                    </table>
+                    <table class="styled-table">
+                        <th class="subtitlu">Symbol</th>
+                        <th class="subtitlu">Holding</th>
+                        <th class="subtitlu">%</th>
+                        <tr>
+                            <td><a href="https://etfdb.com/stock/AAPL/" target="_blank"> AAPL</a></td>
+                            <td>Apple Inc.</td>
+                            <td>4.49%</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://etfdb.com/stock/MSFT/" target="_blank">MSFT</a></td>
+                            <td>Microsoft Corporation</td>
+                            <td>4.33%</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://etfdb.com/stock/AMZN/" target="_blank">AMZN</a></td>
+                            <td>Amazon.com, Inc.</td>
+                            <td>3.22%</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://etfdb.com/stock/FB/" target="_blank">FB</a></td>
+                            <td>Facebook Inc. Class A</td>
+                            <td>1.72%</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://etfdb.com/stock/GOOGL/" target="_blank">GOOGL</a></td>
+                            <td>Alphabet Inc. Class A</td>
+                            <td>1.51%</td>
+                        </tr>
+                    </table>
+                    <div class="div_p">
+                        <p>
+                            This ETF offers broad exposure to the U.S. equity market, investing in thousands of
+                            different
+                            securities across all sectors. That makes VTI an appealing option for investors looking to
+                            simplify
+                            their portfolios and minimize rebalancing obligations, as this fund can serve as a core
+                            holding of a
+                            long-term portfolio. VTI can potentially be useful as a tool for establishing quick exposure
+                            to
+                            risky assets, though most shorter-term traders with that objective will gravitate towards
+                            products
+                            such as SPY instead. One of the most attractive aspects of VTI, in addition to the extremely
+                            broad
+                            base of holdings and balance of exposure, is the price. <span id="dots2">...</span><span
+                                id="more2">
+                    This ETF is one of the cheapest products
+                    available, and the ability to trade commission free within a Vanguard account further increases the
+                    appeal to cost-conscious investors. For those looking to minimize fees, VTI will fit right into a
+                    portfolio. One attribute worth noting, however, is the tilt towards large caps. While VTI includes
+                    companies of all sizes, the allocations to mid caps and small caps are not significant. Those
+                    seeking more balanced exposure to U.S. equities may want to use VTI alongside more targeted products
+                    focusing on smaller companies.
+                    </span></p>
+                        <button onclick="readMore2()" id="myBtn2" style="margin-bottom: 50px">Read more</button>
+                    </div>
+                </div>
+                <div style="width: 400px;">
+                    <h2 class="subtitlu">Invesco QQQ</h2>
+                    <table class="styled-table">
+                        <th class="subtitlu">Vitals</th>
+                        <tr>
+                            <td>Issuer</td>
+                            <td><a href="https://etfdb.com/issuer/invesco-powershares/" target="_blank">Invesco</a></td>
+                        </tr>
+                        <tr>
+                            <td>Structure</td>
+                            <td>UIT</td>
+                        </tr>
+                        <tr>
+                            <td>Expense Ratio</td>
+                            <td>0.20%</td>
+                        </tr>
+                        <tr>
+                            <td>ETF Website</td>
+                            <td><a href="http://invescopowershares.com/products/overview.aspx?ticker=QQQ"
+                                   target="_blank">Website</a></td>
+                        </tr>
+                        <tr>
+                            <td>Inception</td>
+                            <td>Mar 10, 1999</td>
+                        </tr>
+                        <tr>
+                            <td>Tax Form</td>
+                            <td>1099</td>
+                        </tr>
+                        <tr>
+                            <td>Index Tracked</td>
+                            <td><a href="https://etfdb.com/index/nasdaq-100-index/" target="_blank">NASDAQ-100 Index</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="styled-table">
+                        <th class="subtitlu">Symbol</th>
+                        <th class="subtitlu">Holding</th>
+                        <th class="subtitlu">%</th>
+                        <tr>
+                            <td><a href="https://etfdb.com/stock/AAPL/" target="_blank"> AAPL</a></td>
+                            <td>Apple Inc.</td>
+                            <td>11.14%</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://etfdb.com/stock/MSFT/" target="_blank">MSFT</a></td>
+                            <td>Microsoft Corporation</td>
+                            <td>9.63%</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://etfdb.com/stock/AMZN/" target="_blank">AMZN</a></td>
+                            <td>Amazon.com, Inc.</td>
+                            <td>8.53%</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://etfdb.com/stock/TSLA/" target="_blank">TSLA</a></td>
+                            <td>Tesla Inc.</td>
+                            <td>4.13%</td>
+                        </tr>
+                        <tr>
+                            <td><a href="https://etfdb.com/stock/GOOGL/" target="_blank">GOOGL</a></td>
+                            <td>Alphabet Inc. Class A</td>
+                            <td>4.00%</td>
+                        </tr>
+                    </table>
+                    <div class="div_p">
+                        <p>
+                            This ETF offers exposure to one of the world's most widely-followed equity benchmarks, the
+                            NASDAQ,
+                            and has become one of the most popular exchange-traded products. The significant average
+                            daily
+                            trading volumes reflect that QQQ is widely used as a trading vehicle, and less as a
+                            components of a
+                            balanced long-term strategy. Of course, this fund can certainly be useful as part of a
+                            buy-and-hold
+                            approach for investors looking to maintain a tilt towards the potentially volatile tech
+                            sector.
+                            <span id="dots3">...</span><span id="more3">
+                    The composition of QQQ is certainly unique; this fund maintains a hefty allocation to technology
+                    companies, resulting in potentially significant volatility through heightened exposure to a sector
+                    that has historically experienced both impressive rallies and devastating busts. Moreover, the
+                    relative concentration (only 100 names) may be less than ideal--especially considering that a small
+                    handful of stocks make up a material chunk of the portfolio. QQQ is used primarily by short-term
+                    traders, as evidenced by the high average daily turnover. QQQ has penny-wide spreads and can be a
+                    nice tool for those looking to quickly establish a position in U.S. equity markets (though SPY
+                    accomplishes similar objectives). But investors building a retirement portfolio or maintaining a
+                    longer-term objective would be better served to look elsewhere for a fund that achieves better
+                    balance across various sectors of the economy.
+
+                    It should be noted that QQQ is cost efficient; the expense ratio is one of the lowest in the
+                    industry. Other more expensive alternatives offer similar exposure, including an equal-weighted
+                    version of the same underlying index (QQEW) and a version that focuses only on the non-technology
+                    components of the NASDAQ (QQXT).
+                    </span></p>
+                        <button onclick="readMore3()" id="myBtn3" style="margin-bottom: 50px">Read more</button>
+                    </div>
+                </div>
+            </div>
+
+        {% else %}
             <div class="titlu_ticker"> {{ ticker.title }}</div>
-            <hr style="width: 1310px; height:2px; border-width:0; color:gray; background-color:gray; margin-left: 287px;">
+            <hr style="width: 1310px; height:2px; border-width:0; color:gray; background-color:#009879; margin-left: 287px;">
+
             {% if ticker.company_profile %}
                 <div class="company_summary"> {{ ticker.company_profile }} </div>
             {% else %}
                 <div class="company_summary"> {{ ticker.title }} </div>
             {% endif %}
 
-            <a href="https://finance.yahoo.com/quote/{{ ticker.tick }}/profile?p={{ ticker.tick }}">
-                <button class="button">Read more..</button>
+            <a href="https://finance.yahoo.com/quote/{{ ticker.tick }}/profile?p={{ ticker.tick }}" target="_blank">
+                <button class="button"><span>Read more</span></button>
             </a>
 
             <!-- TradingView Widget BEGIN -->
@@ -239,7 +545,7 @@
             </div>
             <!-- TradingView Widget END -->
 
-            <table style="float: left; margin-left: 287px;">
+            <table class="styled-table" style="float: left; margin-left: 287px; width: 34.2%">
                 <tr>
                     <td>Current price:</td>
                     {% if not ticker.current_price %}
@@ -290,8 +596,7 @@
                 </tr>
             </table>
 
-
-            <table style="float: left; margin-left: 10px">
+            <table class="styled-table" style="float: left; margin-left: 10px; width: 34.2%">
                 <tr>
                     <td>Avg. Volume:</td>
                     {% if not ticker.avg_volume %}
@@ -341,13 +646,59 @@
                     {% endif %}
                 </tr>
             </table>
-
-
         {% endif %}
     {% endfor %}
 
 </div>
+<script>
+    function readMore1() {
+        var dots = document.getElementById("dots");
+        var moreText = document.getElementById("more");
+        var btnText = document.getElementById("myBtn");
 
+        if (dots.style.display === "none") {
+            dots.style.display = "inline";
+            btnText.innerHTML = "Read more";
+            moreText.style.display = "none";
+        } else {
+            dots.style.display = "none";
+            btnText.innerHTML = "Read less";
+            moreText.style.display = "inline";
+        }
+    }
+
+    function readMore2() {
+        var dots = document.getElementById("dots2");
+        var moreText = document.getElementById("more2");
+        var btnText = document.getElementById("myBtn2");
+
+        if (dots.style.display === "none") {
+            dots.style.display = "inline";
+            btnText.innerHTML = "Read more";
+            moreText.style.display = "none";
+        } else {
+            dots.style.display = "none";
+            btnText.innerHTML = "Read less";
+            moreText.style.display = "inline";
+        }
+    }
+
+    function readMore3() {
+        var dots = document.getElementById("dots3");
+        var moreText = document.getElementById("more3");
+        var btnText = document.getElementById("myBtn3");
+
+        if (dots.style.display === "none") {
+            dots.style.display = "inline";
+            btnText.innerHTML = "Read more";
+            moreText.style.display = "none";
+        } else {
+            dots.style.display = "none";
+            btnText.innerHTML = "Read less";
+            moreText.style.display = "inline";
+        }
+    }
+</script>
 </body>
 <div class="footer">
     <a href="https://www.facebook.com/sorinbland" target="blank"><i class="fab fa-facebook-square"

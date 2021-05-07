@@ -9,6 +9,7 @@
     content: "";
     display: table;
     clear: both;
+    height: auto;
 }
 
 .wrapper {
@@ -31,9 +32,9 @@
 
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1900px) {
     .wrapper {
-        width: 100%;
+        width: 50%;
         display: block;
         margin-bottom: 20px;
     }
@@ -46,6 +47,23 @@
 
     .cards {
         width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    img {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    .menup {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
+    form {
+         width: 100%;
         display: block;
         margin-bottom: 20px;
     }
@@ -132,16 +150,47 @@ body {
     position: static;
 }
 
-.getInfoButton {
-    margin-left: 0px;
-    position: static;
-    display: flex;
-}
 
 .titlu_ticker {
     font-family: Georgia, serif;
     font-size: 40px;
     margin-left: 287px;
     margin-top: 70px;
+}
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table a {
+    text-decoration: #009879;
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
 }
 

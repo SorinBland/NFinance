@@ -18,7 +18,7 @@
             padding: 0;
             background-color: #454545;
             overflow: hidden;
-            height: 50px;
+            height: 49px;
         }
 
         li {
@@ -52,6 +52,7 @@
             text-decoration: none;
         }
 
+
     </style>
 </head>
 
@@ -59,7 +60,10 @@
 
 <div class="menup">
     <ul>
-        <li><img src={% static "img/logo2.png" %} alt="logo" style="padding: 10px 16px; display: block; top: 2px"></li>
+        <a href="/">
+            <li><img src={% static "img/logo2.png" %} alt="logo" style="padding: 10px 16px; display: block; top: 2px">
+            </li>
+        </a>
         <li><a class="active" href="">News</a></li>
         <li><a href="{% url 'crypto' %}">Crypto</a></li>
 
@@ -95,7 +99,8 @@
     <div class="tradingview-widget-container__widget"></div>
     <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-tickers.js" async>
         {
-            "symbols":
+            "symbols"
+        :
             [
                 {
                     "proName": "FOREXCOM:SPXUSD",
@@ -136,16 +141,15 @@
 </div>
 <!-- TradingView Widget END -->
 
-<br>
-<br>
 
 <div class="row">
     <div class="wrapper">
         {% for object in object_list %}
             <div class="cards">
-                <img alt="{{ object.title }}" src="{{ object.head_img }}" style="padding: 10px 20px 20px 0"
-                     width="300px"
-                     height="auto">
+                <a href="{{ object.url }}" target="_blank"><img alt="{{ object.title }}" src="{{ object.head_img }}"
+                                                                style="padding: 10px 20px 20px 0"
+                                                                width="300px"
+                                                                height="auto"></a>
                 <a href="{{ object.url }}" target="_blank"><h3 class="subtitlu"
                                                                style="margin: 0px">{{ object.title }}</h3></a>
                 <p style="font-size: 10px">{{ object.datetime }}</p>
@@ -155,6 +159,7 @@
         {% endfor %}
     </div>
 </div>
+
 </body>
 
 <div class="footer">

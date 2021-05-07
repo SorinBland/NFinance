@@ -18,7 +18,7 @@
             padding: 0;
             background-color: #454545;
             overflow: hidden;
-            height: 50px;
+            height: 49px;
         }
 
         li {
@@ -56,11 +56,9 @@
 </head>
 
 <body>
-{#<h1 class="header">NFinance</h1>#}
-
 <div class="menup">
     <ul>
-        <li><img src={% static "img/logo2.png" %} alt="logo" style="padding: 10px 16px; display: block;"></li>
+        <a href="{% url 'index' %}"><li><img src={% static "img/logo2.png" %} alt="logo" style="padding: 10px 16px; display: block;"></li></a>
         <li><a href="{% url 'index' %}">News</a></li>
         <li><a class="active" href="">Crypto</a></li>
         {% if user.is_authenticated %}
@@ -129,11 +127,13 @@
     <div class="wrapper">
         {% for object in crypto_news %}
             <div class="cards">
+                <a href="{{ object.url }}" target="_blank"><img alt="{{ object.title }}" src="{{ object.head_img }}" style="padding: 10px 20px 20px 0"
+                     width="300px"
+                                                                height="auto"></a>
                 <a href="{{ object.url }}" target="_blank"><h3 class="subtitlu"
                                                                style="margin: 0px">{{ object.title }}</h3></a>
                 <p style="font-size: 10px">{{ object.datetime }}</p>
-                <img alt="{{ object.title }}" src="{{ object.head_img }}" style="padding: 10px 20px 20px 0" width="300px"
-                     height="auto">
+
                 <p>{{ object.start_paragraph }}</p>
             </div>
         {% endfor %}

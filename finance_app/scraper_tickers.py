@@ -16,11 +16,15 @@ requests.packages.urllib3.disable_warnings()
 def scrape_ticker(user_input):
     session = requests.Session()
     session.headers = {"User-Agent": "Googlebot/2.1 (+http://www.google.com/bot.html)"}
+
+    # price info tables
     url = f"https://finance.yahoo.com/quote/{user_input}?p={user_input}"
     soup = Bs(session.get(url, verify=False).content, "html.parser")
     cadru_mare = soup.find_all("div", {"id": "quote-summary"})
     cadru_titlu = soup.find_all("div", {"class": "D(ib)"})
     cadru_current_price = soup.find_all("div", {"class": "D(ib) Mend(20px)"})
+
+    # summary
     url = f"https://finance.yahoo.com/quote/{user_input}/profile?p={user_input}"
     soup = Bs(session.get(url, verify=False).content, "html.parser")
     cadru_summary = soup.find_all("p", {"class": "Mt(15px)"})
