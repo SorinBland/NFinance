@@ -1,5 +1,7 @@
 from django.urls import path
-from finance_app.views import article_list, scraper_view, ticker_list, filter_news, crypto
+
+
+from finance_app.views import article_list, scraper_view, ticker_list, filter_news, crypto, personal_finance
 
 urlpatterns = [
     path("scraper/", scraper_view, name="scraper"),
@@ -7,5 +9,9 @@ urlpatterns = [
     path("filter/", filter_news, name='filter'),
     path("tickers/", ticker_list, name="tickers"),
     path("crypto/", crypto, name='crypto'),
+    path("personal/", personal_finance, name='personal'),
+
+
+
 
 ]

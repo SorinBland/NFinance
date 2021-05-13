@@ -62,10 +62,9 @@
             <li><img src={% static "img/logo2.png" %} alt="logo" style="padding: 10px 16px; display: block;"></li>
         </a>
         <li><a href="{% url 'index' %}">News</a></li>
-        <li><a class="active" href="">Crypto</a></li>
+        <li><a href="{% url 'crypto' %}">Crypto</a></li>
         <li><a href="{% url 'tickers' %}">Tickers</a></li>
-        <li><a href="{% url 'personal' %}">Personal Finance</a></li>
-
+        <li><a class="active" href="">Personal Finance</a></li>
         {% if user.is_authenticated %}
             <li style="float: right"><a href="{% url 'subscribe' %}">Subscribe</a></li>
             <li style="float: right"><a href="{% url 'logout' %}">Logout</a></li>
@@ -140,7 +139,7 @@
 <br>
 <div class="row">
     <div class="wrapper">
-        {% for object in crypto_news %}
+        {% for object in personal_news %}
             <div class="cards">
                 <a href="{{ object.url }}" target="_blank"><img alt="{{ object.title }}" src="{{ object.head_img }}"
                                                                 style="padding: 10px 20px 20px 0"

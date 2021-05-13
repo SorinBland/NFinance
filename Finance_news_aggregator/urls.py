@@ -23,4 +23,5 @@ urlpatterns = [
     path("", include("finance_app.urls")),
     path("users/", include("users.urls")),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('subscribe/', include('subscribe.urls')),
 ]

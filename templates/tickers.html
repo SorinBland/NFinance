@@ -2,7 +2,7 @@
 <html lang="eng">
 
 <head>
-    <title>Tickers</title>
+    <title>NFinance</title>
     <link rel="icon" href="data:,">
     <script src="https://kit.fontawesome.com/34f40f3751.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href='{% static "css/style_noutati.css" %}'>
@@ -135,8 +135,10 @@
         </a>
         <li><a href="/">News</a></li>
         <li><a href="{% url 'crypto' %}">Crypto</a></li>
+        <li><a class="active" href="">Tickers</a></li>
+        <li><a href="{% url 'personal' %}">Personal Finance</a></li>
         {% if user.is_authenticated %}
-            <li><a class="active" href="">Tickers</a></li>
+            <li style="float: right"><a href="{% url 'subscribe' %}">Subscribe</a></li>
             <li style="float: right"><a href="{% url 'logout' %}">Logout</a></li>
         {% else %}
             <li style="float: right"><a href="{% url 'register' %}"> Sign Up</a></li>
@@ -208,10 +210,8 @@
 </div>
 
 <div class="row">
-
     {% for ticker in ticker_list %}
         {% if not ticker.title %}
-
             <div class="wrapper" style="margin-left: 300px;column-gap: 50px">
                 <div style="width: 400px; height: auto">
                     <h2 class="subtitlu">SPDR S&P 500 ETF</h2>

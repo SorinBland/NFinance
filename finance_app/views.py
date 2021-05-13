@@ -5,7 +5,6 @@ from finance_app.models import Headline, Ticker
 from finance_app.scraper import scrape, scrape_wsj
 from finance_app.scraper_tickers import scrape_ticker
 
-
 requests.packages.urllib3.disable_warnings()
 
 
@@ -27,6 +26,7 @@ def ticker_list(request):
 def scraper_view(request):
     scrape()
     scrape_wsj()
+
     return redirect("../")
 
 
@@ -43,7 +43,7 @@ def filter_news(request):
     filter_term = request.POST.get('filter')
     articles_filtered = Headline.objects.filter(title__icontains=f"{filter_term}")
     if articles_filtered:
-        context = {'articles_filtered': articles_filtered}
+        context = {'articles_filtered': articles_filtered[::-1]}
         return render(request, "filter.html", context)
     else:
         return HttpResponse("There are no news matching your search, please try again.")
@@ -59,5 +59,15 @@ def crypto(request):
                   Headline.objects.filter(title__icontains='altcoin')
 
     context = {'crypto_news': crypto_news[::-1]}
-
     return render(request, 'crypto.html', context)
+
+
+# Filter for personal page
+def personal_finance(request):
+    personal_news = Headline.objects.filter(title__icontains="personal") | \
+                    Headline.objects.filter(title__icontains="retirement") | \
+                    Headline.objects.filter(title__icontains='mortgage') | \
+                    Headline.objects.filter(title__icontains='housing')
+
+    context = {'personal_news': personal_news[::-1]}
+    return render(request, 'personal_finance.html', context)

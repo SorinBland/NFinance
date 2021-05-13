@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'finance_app.apps.FinanceAppConfig',
     'users',
-
+    'subscribe',
 
 ]
 

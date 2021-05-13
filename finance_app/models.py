@@ -29,10 +29,7 @@ class Ticker(models.Model):
     day_range = models.CharField(max_length=30, blank=True, null=True)
     tick = models.CharField(max_length=10, blank=True, null=True)
     company_profile = models.TextField(blank=True, null=True)
-    company_address = models.TextField(blank=True, null=True)
-    company_address2 = models.TextField(blank=True, null=True)
-    company_logo = models.URLField(default=1, blank=True, null=True)
-    company_website = models.URLField(default=1,blank=True, null=True)
 
     def __str__(self):
         return self.title
+
