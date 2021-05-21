@@ -2,12 +2,10 @@ from django.core.mail import send_mail, EmailMessage
 from django.db import IntegrityError
 from django.shortcuts import render
 from django.template.loader import render_to_string
-
 from Finance_news_aggregator.settings import EMAIL_HOST_USER
 from finance_app.models import Headline
 from subscribe import forms
 import smtplib
-
 from subscribe.models import SubEmails
 
 
@@ -41,7 +39,8 @@ def subscribe(request):
                       'You will get three time a month the most recent news!'
             to_email = str(sub['email'].value())
             new_mail.email = to_email
-            new_mail.save()
+            if sub.is_valid():
+                new_mail.save()
             send_mail(subject,
                       message, EMAIL_HOST_USER, [to_email], fail_silently=False)
             return render(request, 'subscribe/success.html', {'to_email': to_email})

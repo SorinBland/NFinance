@@ -65,6 +65,8 @@
         <li><a href="{% url 'crypto' %}">Crypto</a></li>
         <li><a href="{% url 'tickers' %}">Tickers</a></li>
         <li><a class="active" href="">Personal Finance</a></li>
+        <li><a href="{% url 'calculator' %}" style="padding-top: 19px"><i class="fas fa-calculator"></i></a></li>
+
         {% if user.is_authenticated %}
             <li style="float: right"><a href="{% url 'subscribe' %}">Subscribe</a></li>
             <li style="float: right"><a href="{% url 'logout' %}">Logout</a></li>

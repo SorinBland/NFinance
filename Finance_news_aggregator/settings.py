@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'finance_app.apps.FinanceAppConfig',
     'users',
     'subscribe',
+    'retirement_calculator',
+
 
 ]
 

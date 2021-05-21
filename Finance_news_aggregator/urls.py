@@ -24,4 +24,6 @@ urlpatterns = [
     path("users/", include("users.urls")),
     path('accounts/', include('django.contrib.auth.urls')),
     path('subscribe/', include('subscribe.urls')),
+    path('retirement-calculator/', include('retirement_calculator.urls')),
+    
 ]
