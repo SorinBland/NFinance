@@ -71,10 +71,10 @@
             <li style="float: right"><a href="{% url 'subscribe' %}">Subscribe</a></li>
             <li style="float: right"><a href="{% url 'logout' %}">Logout</a></li>
         {% else %}
-            <li style="float: right"><a href="{% url 'register' %}"> Sign Up</a></li>
-            <li style="float: right"><a href="{% url 'login' %}"> Login</a></li>
-
+            <li style="float: right"><a href="{% url 'register' %}">Sign Up</a></li>
+            <li style="float: right"><a href="{% url 'login' %}">Login</a></li>
         {% endif %}
+
         <li style="width: 800px">
             <form method="POST" action="{% url 'filter' %}">
                 {% csrf_token %}
@@ -159,11 +159,15 @@
 </body>
 
 <div class="footer">
-    <a href="https://www.facebook.com/sorinbland" target="blank"><i class="fab fa-facebook-square"
-                                                                    style="font-size: 36px;color: rgb(255, 255, 255);"></i></a>
-    <a href="https://www.instagram.com/hapcius/" target="blank"><i class="fab fa-instagram-square"
-                                                                   style="font-size: 36px;color: rgb(255, 255, 255);"></i></a>
-    <a href="https://www.reddit.com/user/Ciucku" target="blank"><i class="fab fa-reddit-square"
-                                                                   style="font-size: 36px;color: rgb(255, 255, 255);"></i></a>
+    <div>
+        <a href="https://www.facebook.com/sorinbland" target="blank"><i class="fab fa-facebook-square"
+                                                                        style="font-size: 36px;color: rgb(255, 255, 255);"></i></a>
+        <a href="https://www.instagram.com/hapcius/" target="blank"><i class="fab fa-instagram-square"
+                                                                       style="font-size: 36px;color: rgb(255, 255, 255);"></i></a>
+        <a href="https://www.reddit.com/user/Ciucku" target="blank"><i class="fab fa-reddit-square"
+                                                                       style="font-size: 36px;color: rgb(255, 255, 255);"></i></a>
+        <br>
+        <p>Made with <i class="fas fa-heart" style="color: red"></i> by Sorin Bland</p>
+    </div>
 </div>
 </html>

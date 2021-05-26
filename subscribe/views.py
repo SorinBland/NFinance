@@ -1,5 +1,7 @@
+from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail, EmailMessage
 from django.db import IntegrityError
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from Finance_news_aggregator.settings import EMAIL_HOST_USER
@@ -7,9 +9,10 @@ from finance_app.models import Headline
 from subscribe import forms
 import smtplib
 from subscribe.models import SubEmails
+import uuid
 
 
-# Email that are sent
+# Emails that are sent
 def subscribe_mails():
     mail_subject = "Your news!"
     headlines = Headline.objects.all()[::-1]
@@ -39,7 +42,9 @@ def subscribe(request):
                       'You will get three time a month the most recent news!'
             to_email = str(sub['email'].value())
             new_mail.email = to_email
+
             if sub.is_valid():
+                new_mail.uuid = uuid.uuid4()
                 new_mail.save()
             send_mail(subject,
                       message, EMAIL_HOST_USER, [to_email], fail_silently=False)
@@ -52,3 +57,17 @@ def subscribe(request):
             return render(request, 'subscribe/subscribe_mail_error.html', {'form': sub})
 
     return render(request, 'subscribe/subscribe.html', {'form': sub})
+
+
+# Unsubscribe method
+def unsubscribe(request):
+    form = forms.Subscribe(request.POST)
+    if form.is_valid():
+        user_mail = str(form['email'].value())
+        database_email = str(request.user.email)
+        if user_mail == database_email:
+            SubEmails.objects.filter(email=user_mail).delete()
+            return render(request, "subscribe/unsubscribed.html")
+        return HttpResponse("We don't recognize this email!")
+    else:
+        return render(request, "subscribe/unsubscribe.html", {"form": form})

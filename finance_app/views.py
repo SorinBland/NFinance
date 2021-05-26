@@ -69,7 +69,8 @@ def personal_finance(request):
                     Headline.objects.filter(title__icontains='mortgage') | \
                     Headline.objects.filter(title__icontains='housing') | \
                     Headline.objects.filter(title__icontains='pension') | \
-                    Headline.objects.filter(title__icontains='inherited')
+                    Headline.objects.filter(title__icontains='inherited') | \
+                    Headline.objects.filter(title__icontains='retire')
 
     context = {'personal_news': personal_news[::-1]}
     return render(request, 'personal_finance.html', context)
