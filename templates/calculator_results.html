@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Retirement calculator</title>
@@ -15,8 +15,8 @@
 
         body {
             align-items: center;
-            padding-top: 200px;
-            padding-bottom: 40px;
+            padding-top: 50px;
+            padding-bottom: 20px;
             background-color: #f5f5f5;
         }
 
@@ -39,6 +39,7 @@
             font-weight: 300;
             margin-top: 0.40em;
         }
+
         a, a:hover, a:focus, a:active {
             text-decoration: none;
             color: inherit;
@@ -64,9 +65,19 @@
             you will need <u>{{ difference }}</u>
             more currency to retire with no problems.
         </div>
+        <small>How did we get the results?</small>
+        <br>
+        <small>Life expectation is default 80 years.
+            The inflation is default 3%.
+        </small>
+        <br>
+        <small>
+            Please note this is a general and simplistic calculator
+            as for more accurate results there are more variables to be known.</small>
     </div>
 </div>
-<button class="btn btn-dark" style="background-color: #454545; margin-top:20px; margin-left: 900px;"><a href="{% url 'index' %}">Back to home</a></button>
+<button class="btn btn-dark" style="background-color: #454545; margin-top:20px; margin-left: 900px;"><a
+        href="{% url 'index' %}">Back to home</a></button>
 
 </body>
 </html>

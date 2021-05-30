@@ -35,16 +35,7 @@ def scrape():
             new_head.save()
             print(f"Headline created from Yahoo: {new_head.title}")
 
-        except ValidationError:
-            continue
-
-        except IntegrityError:
-            continue
-
-        except AttributeError:
-            continue
-
-        except IndexError:
+        except (ValidationError, IntegrityError, AttributeError, IndexError):
             continue
 
 
@@ -81,16 +72,7 @@ def scrape_wsj():
             new_head_wsj1.save()
             print(f"Headline created from WSJ: {new_head_wsj1.title}")
 
-        except ValidationError:
-            continue
-
-        except IntegrityError:
-            continue
-
-        except AttributeError:
-            continue
-
-        except IndexError:
+        except (ValidationError, IntegrityError, AttributeError, IndexError):
             continue
 
     for article2 in cadru_news2:
@@ -111,14 +93,5 @@ def scrape_wsj():
             new_head_wsj2.save()
             print(f"Headline created from WSJ: {new_head_wsj2.title}")
 
-        except ValidationError:
-            continue
-
-        except IntegrityError:
-            continue
-
-        except AttributeError:
-            continue
-
-        except IndexError:
+        except (ValidationError, IntegrityError, AttributeError, IndexError):
             continue

@@ -3,11 +3,9 @@ from django.core.exceptions import ValidationError
 from bs4 import BeautifulSoup as Bs
 from django.db import IntegrityError
 import re
-
 from django.utils.text import Truncator
-
 from finance_app.models import Ticker
-import yfinance
+
 
 requests.packages.urllib3.disable_warnings()
 
@@ -35,6 +33,7 @@ def scrape_ticker(user_input):
             ticker_summary = summary.text
             new_ticker.company_profile = ticker_summary
             new_ticker.company_profile = Truncator(new_ticker.company_profile).chars(400)
+
         except AttributeError:
             continue
 
@@ -45,6 +44,7 @@ def scrape_ticker(user_input):
             for tick in tick_from_title:
                 new_ticker.tick = str(tick).strip("()")
                 new_ticker.title = title
+
         except AttributeError:
             continue
 
@@ -81,16 +81,7 @@ def scrape_ticker(user_input):
             new_ticker.year_range = year_range
             new_ticker.day_range = day_range
 
-        except ValidationError:
-            continue
-
-        except IntegrityError:
-            continue
-
-        except AttributeError:
-            continue
-
-        except IndexError:
+        except (ValidationError, IntegrityError, AttributeError, IndexError):
             continue
 
     new_ticker.save()

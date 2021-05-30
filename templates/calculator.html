@@ -69,16 +69,19 @@
     <h3>Find out how much more you need to save for your retirement using the calculator below.</h3>
     <form method="post" action="">
         {% csrf_token %}
-        <label for="id_age">How old are you?</label>
+        <label for="id_age">How old are you?</label><br>
+        <small style="font-size: 12px">Min:15, Max:80, No negative numbers</small>
+
         <div class="form-floating" style="margin-bottom: 10px">
             <input name="age" type="number" class="form-control" id="id_age" required>
         </div>
-        <label for="id_age_retirement">At what age do you want to retire?</label>
+        <label for="id_age_retirement">At what age do you want to retire?</label><br>
+        <small style="font-size: 12px">Min:15, Max:80, No negative numbers</small>
+
         <div class="form-floating" style="margin-bottom: 10px">
             <input name="age_retirement" type="number" class="form-control" id="id_age_retirement"
                    required>
         </div>
-
         <label for="id_monthly_save">How much do you save per month?</label>
         <div class="form-floating" style="margin-bottom: 10px">
             <input name="monthly_save" type="number" class="form-control" id="id_monthly_save"
