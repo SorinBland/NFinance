@@ -15,6 +15,7 @@ UserModel = get_user_model()
 
 # User register method
 def register(request):
+
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
